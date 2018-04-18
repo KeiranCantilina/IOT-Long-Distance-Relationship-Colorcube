@@ -12,7 +12,7 @@
  * boards (supporting the sparkfun.io Phant servers) is now obsolete.
  * 
  * Written/rehashed/butchered by Keiran Cantilina
- * Attribution-NonCommercial licesnse 3.0 United States (CC BY-NC 3.0 US)
+ * License: GNU GPL v3.0
  * 
  * Boilerplate from original Adafruit MQTT Library ESP8266 Example code
  * is included below. Please include both the above and below text in any
