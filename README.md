@@ -12,4 +12,4 @@ The devices each consist of a plastic 3D printed base (containing the microcontr
 
 SOFTWARE DESIGN
 ---------------------
-The software side of things should be pretty simple. The Wildfire collects sensor data and randomly generates 3 values (for RGB) when a squeeze is detected. These values are first used to change the color of the originating cube, then the values are concatenated with an ID string and published via MQTT to a feed on io.adafruit.com. The device is also subscribed to the same feed. When data is recieved through the subscription, the device parses the data and checks the ID string. If the data originated from the other cube, the cube uses the RGB values to change its own color.
+The software side of things should be pretty simple. The Wildfire collects sensor data and randomly generates 3 values (for RGB) when a squeeze is detected. These values are published via MQTT to a feed on io.adafruit.com. The device is also subscribed to the same feed, and will collect both values it publishes and values from other cubes. When data is recieved through the subscription, the device parses the data and uses the RGB values to change its own color.
