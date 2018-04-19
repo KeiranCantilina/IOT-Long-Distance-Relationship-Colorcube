@@ -1,5 +1,5 @@
 /***************************************************
- * Wicked Device Wildfire v4 MQTT-Adafruit.io Example: Long Distance Relationship/Friendship Cube
+ * Wicked Device Wildfire v4 MQTT-Adafruit.io Example
  * 
  * 
  * This is the Adafruit MQTT Library ESP8266 Example, 
@@ -10,11 +10,6 @@
  * This bit of code serves as an example of how to get the Wildfire v4 to 
  * work with io.adafruit.com using MQTT, since the code shipped with the 
  * boards (supporting the sparkfun.io Phant servers) is now obsolete.
- * WHen the button is pushed, RGB data gets sent via MQTT to io.adafruit.com.
- * THe device also parses RGB data it recieves and turns that color. All devices
- * subscribed to the same feed with this code will be color synchronized!
- *
- * By default, the button is on A0 (pullup) and the RGB LED is common cathode on pins D8-D11.
  * 
  * Written/rehashed/butchered by Keiran Cantilina
  * Attribution-NonCommercial licesnse 3.0 United States (CC BY-NC 3.0 US)
@@ -233,11 +228,14 @@ void loop() {
     flag = 0;
   }
     
-    
+
   Serial.println("No message so far! Will look again...");
 
   // Increment times run counter
-  times_run++;
+  if(times_run == 0){
+    times_run++;
+  }
+  
   
   // ping the server to keep the mqtt connection alive
   // NOT required if you are publishing once every KEEPALIVE seconds
