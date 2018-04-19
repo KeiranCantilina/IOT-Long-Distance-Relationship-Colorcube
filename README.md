@@ -1,4 +1,4 @@
-# IOT-Long-Distance-Relationship-Colorcube
+# IOT Long Distance Relationship Colorcube
 Design for a pair of networked RGB LED widgets that synchronously change color when one of them is squeezed.
 
 I know there are similar things out there, but I'm intentionally forging forward without looking at other implementations in order to force myself to properly learn this stuff.
