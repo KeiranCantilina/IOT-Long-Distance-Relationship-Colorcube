@@ -198,12 +198,9 @@ void loop() {
 
   Adafruit_MQTT_Subscribe *subscription;
 
-  //If first time running, turn LED green to indicate ready status
-  if (times_run == 0){
-    rgbLed.writeRGB(0,0,255);
-  }
   
-  while (flag == 0 && (subscription = mqtt.readSubscription(2000))) {
+  
+  while (flag == 0 && (subscription = mqtt.readSubscription(1000))) {
     if (subscription == &onoffbutton) {
       Serial.println();
       Serial.print(F("Message recieved: "));
@@ -213,6 +210,11 @@ void loop() {
     }  
   }
 
+  //If first time running, turn LED blue to indicate ready status
+  if (times_run == 0){
+    rgbLed.writeRGB(0,0,255);
+  }
+  
   if (flag == 1){
     //x = rand_color();
     Serial.print(F("\nSending color value: "));
