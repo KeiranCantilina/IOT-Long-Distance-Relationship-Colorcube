@@ -13,3 +13,7 @@ The devices each consist of a plastic 3D printed base (containing the microcontr
 SOFTWARE DESIGN (Done! See RX-TX-color-mqtt.ino)
 ---------------------
 The software side of things should be pretty simple. The Wildfire collects sensor data and randomly generates 3 values (for RGB) when a squeeze is detected. These values are published via MQTT to a feed on io.adafruit.com. The device is also subscribed to the same feed, and will collect both values it publishes and values from other cubes. When data is recieved through the subscription, the device parses the data and uses the RGB values to change its own color.
+
+ENCLOSURE DESIGN (Prototype completed! See 3mf files)
+---------------------
+The enclosure consists of a two-part 3D printed shell with holes for wires (and to provide access to the USB port) and standoffs for boards. There is a sort of brim thingy to hold the silicone cube using a friction fit. This design will probably go through several refinement stages. Holes in the standoffs (for screws) will be drilled by hand because the 3D printer is bad at holes.
