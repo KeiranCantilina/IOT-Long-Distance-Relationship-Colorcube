@@ -10,7 +10,7 @@ HARDWARE DESIGN (Prototype completed!)
 ---------------------
 The devices each consist of a plastic 3D printed base (containing the microcontroller board) with an RGB led protruding from the base. The LED is covered by a silicon cube-shaped diffuser, which also contains a motion sensor to detect squeezing. Power is provided by 5V USB. A small Li-ion battery might be included.
 
-SOFTWARE DESIGN (Done! See RX-TX-color-mqtt.ino)
+SOFTWARE DESIGN (Done! See RX-TX-color-mqtt-bold.ino)
 ---------------------
 The software side of things should be pretty simple. The Wildfire collects sensor data and randomly generates 3 values (for RGB) when a squeeze is detected. These values are published via MQTT to a feed on io.adafruit.com. The device is also subscribed to the same feed, and will collect both values it publishes and values from other cubes. When data is recieved through the subscription, the device parses the data and uses the RGB values to change its own color.
 
