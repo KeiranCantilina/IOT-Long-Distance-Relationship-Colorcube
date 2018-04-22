@@ -33,3 +33,8 @@ for (i in 1:100000){
   random_vec[i] <- random
   
 }
+
+hist(random_vec, breaks = 5000)
+hist(r, breaks = 5000)
+hist(g, breaks = 5000)
+hist(b, breaks = 5000)
