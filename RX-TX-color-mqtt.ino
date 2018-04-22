@@ -57,7 +57,7 @@ uint8_t input_buffer[ESP8266_INPUT_BUFFER_SIZE] = {0};
 
 /************************* Init LED & switch stuff****************************/
 
-RGBLED rgbLed(8,9,10,COMMON_CATHODE);
+RGBLED rgbLed(9,10,8,COMMON_CATHODE); // 9,10,8 for smd led chip, 8,9,10 for through-hole
 int LED_gnd = 11;
 
 #define BUTTON_PIN 24
@@ -65,7 +65,7 @@ int LED_gnd = 11;
 
 
 uint32_t last_interrupt_time = 0;
-uint8_t led_status = 0;
+uint8_t led_status = 0; //  Debugging LED flag
 volatile int flag = 0;
 volatile long times_run = 0;
 
@@ -127,7 +127,7 @@ void setup() {
 
   // Setup interrupt handling and LED for debug purposes
   pinMode(LED_BUILTIN, OUTPUT);
-  enableInterrupt(BUTTON_PIN, isr_handler, RISING);
+  enableInterrupt(BUTTON_PIN, isr_handler, CHANGE); // CHANGE for dome lights, RISING for little button switches
 
   // This is our fake ground connection for the rgb led
   pinMode(LED_gnd, OUTPUT);
@@ -304,7 +304,7 @@ void isr_handler() {
   // Debounce
   if (interrupt_time - last_interrupt_time > DEBOUNCE_DELAY) {
     led_status = !led_status;
-    digitalWrite(LED_BUILTIN, led_status);
+    //digitalWrite(LED_BUILTIN, led_status);  // Enable this for visual debugging switch/interrupt stuff
     flag = 1;
   }
   last_interrupt_time = interrupt_time;
