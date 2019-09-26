@@ -8,12 +8,15 @@
 
 
 void setup() {
+  //Initialize Serial comms
+  Serial.begin(115200);
+
   //Initialize WifiManager captive portal
   WiFiManager wifiManager;
 
   //Callback to function that executes right before config mode
   wifiManager.setAPCallback(configModeCallback);
-  
+
   //first parameter is name of access point, second is the password
   wifiManager.autoConnect("ESP8266_KKC", "password");
 
