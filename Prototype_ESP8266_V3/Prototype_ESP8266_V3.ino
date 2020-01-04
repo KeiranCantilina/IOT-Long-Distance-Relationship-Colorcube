@@ -173,13 +173,46 @@ void loop() {
       Serial.println((char *)subscribe_feed.lastread);
       Serial.println();
 
-      // Write received color to LED (with crossfade)
+      // Write received color to LED
       int new_color[3];
       new_color[0] = string_to_red((char *)subscribe_feed.lastread)-111;
       new_color[1] = string_to_green((char *)subscribe_feed.lastread)-111;
       new_color[2] = string_to_blue((char *)subscribe_feed.lastread)-111;
-      crossfade(new_color[0],new_color[1],new_color[2], current_color[0],current_color[1],current_color[2], RGBlight);
-      memcpy(current_color,new_color,sizeof(current_color));
+
+
+      // LED crossfade (is inline because it was too slow as a function, for some reason)
+      int greatest;
+      int color_difference[3] = {new_color[0]-current_color[0],new_color[1]-current_color[1],new_color[2]-current_color[2]};
+  
+      if(abs(color_difference[0])>= abs(color_difference[1])){
+        if(abs(color_difference[0])>= abs(color_difference[2])){
+          greatest = color_difference[0];
+        }
+        else{
+          greatest = color_difference[2];
+         }
+      }
+      else{
+        if(abs(color_difference[1])>= abs(color_difference[2])){
+          greatest = color_difference[1];
+        }
+        else{
+          greatest = color_difference[2];
+        }
+      }
+  
+      for (int i=0; i< abs(greatest); i++){
+        for (int j=0; j<3;j++){
+          if (current_color[j] != new_color[j]){
+            current_color[j] = current_color[j] + sgn(color_difference[j]);
+          }
+        }
+
+        RGBlight.setPixelColor(0,RGBlight.gamma32(RGBlight.Color(current_color[0],current_color[1],current_color[2])));
+        RGBlight.show();
+        delay(10);
+      }
+      // ---------------------------------------------------------------------------------------
     }  
   }
 
@@ -310,45 +343,6 @@ void configModeCallback (WiFiManager *myWiFiManager) {
   Serial.println(WiFi.softAPIP());
   // Placeholder for future callback code here (debug, maybe)
   Serial.println(myWiFiManager->getConfigPortalSSID());
-}
-
-
-// Function for crossfading color transitions
-void crossfade (int r, int g, int b, int r_c, int g_c, int b_c, Adafruit_NeoPixel neopixel){
-  int new_color[3] = {r,g,b};
-  int current_color[3] = {r_c,g_c,b_c};
-  int greatest;
-  
-  int color_difference[3] = {new_color[0]-current_color[0],new_color[1]-current_color[1],new_color[2]-current_color[2]};
-  
-  if(abs(color_difference[0])>= abs(color_difference[1])){
-    if(abs(color_difference[0])>= abs(color_difference[2])){
-      greatest = color_difference[0];
-    }
-    else{
-      greatest = color_difference[2];
-    }
-  }
-  else{
-    if(abs(color_difference[1])>= abs(color_difference[2])){
-      greatest = color_difference[1];
-    }
-    else{
-      greatest = color_difference[2];
-    }
-  }
-  
-  for (int i=0; i< abs(greatest); i++){
-    for (int j=0; j<3;j++){
-      if (current_color[j] != new_color[j]){
-        current_color[j] = current_color[j] + sgn(color_difference[j]);
-      }
-    }
-
-    neopixel.setPixelColor(0,neopixel.gamma32(neopixel.Color(current_color[0],current_color[1],current_color[2])));
-    neopixel.show();
-    delay(10);
-  }
 }
 
 
